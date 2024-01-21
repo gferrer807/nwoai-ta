@@ -1,0 +1,36 @@
+version: '3.8'
+services:
+  bronze:
+    build: ./bronze
+    command: python app.py
+    volumes:
+      - ./bronze:/app
+    ports:
+      - "8081:8080"
+    environment:
+      - GOOGLE_DRIVE_FILE_ID=1E7iRwCp7IjvCjh_-owrt2NTMWnvgleZp
+      - PORT=8080
+      - PUBSUB_EMULATOR_HOST=pubsub-emulator:8085
+      - SILVER_URL=http://silver:8080
+      - ENVIRONMENT=dev
+
+  silver:
+    build: ./silver
+    command: python app.py
+    volumes:
+      - ./silver:/app
+    ports:
+      - "8082:8080"
+    environment:
+      - PORT=8080
+      - PUBSUB_EMULATOR_HOST=pubsub-emulator:8085
+
+  pubsub-emulator:
+    image: google/cloud-sdk:latest
+    ports:
+      - "8085:8085"
+    volumes:
+      - ./utils/pubsub-setup.sh:/pubsub-setup.sh
+    command: gcloud beta emulators pubsub start --host-port=0.0.0.0:8085
+    environment:
+      - CLOUDSDK_CORE_PROJECT=fake-project
