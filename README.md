@@ -25,7 +25,6 @@ This project implements a comprehensive ETL (Extract, Transform, Load) pipeline 
     
     ```
     docker-compose up --build
-    
     ```
     
     This command builds and starts the Bronze, Silver, and Gold services, along with a MongoDB container. Services will be accessible on ports **`8081-8083`**, and MongoDB will be available on port **`27017`**.
@@ -36,7 +35,6 @@ This project implements a comprehensive ETL (Extract, Transform, Load) pipeline 
     
     ```
     python setup_db.py
-    
     ```
     
     You can do this from inside the docker container or outside. This script creates the reddit_analytics database and its associated collections. 
@@ -47,7 +45,6 @@ This project implements a comprehensive ETL (Extract, Transform, Load) pipeline 
     
     ```
     curl -X POST http://localhost:8081/process-zst
-    
     ```
     
 
@@ -61,7 +58,6 @@ To develop or test a service in isolation:
     
     ```
     docker build -t <service_name> ./<service_name>
-    
     ```
     
 2. **Run the Docker Container**
@@ -70,7 +66,6 @@ To develop or test a service in isolation:
     
     ```
     docker run -p 8080:8080 <service_name>
-    
     ```
     
 
