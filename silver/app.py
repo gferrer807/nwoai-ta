@@ -4,7 +4,7 @@ import json
 from flask import Flask, request, jsonify
 from google.cloud import pubsub_v1
 from concurrent.futures import TimeoutError
-from utils.util_functions import translate_schema
+from utils.util_functions import translate_schema, send_to_gold
 
 app = Flask(__name__)
 
@@ -39,6 +39,7 @@ def process_pubsub_message():
             data_to_insert.append(translate_schema(data_entry))
         
         # insert into mongodb
+        send_to_gold(data_to_insert)
     except Exception as e:
         print(f'error: {e}')
         return jsonify({"status": "failed", "message": str(e)}), 500

@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 from pymongo import MongoClient
+from utils.util_functions import write_to_db
 import os
 
 app = Flask(__name__)
@@ -18,7 +19,7 @@ def insert_data():
         return jsonify({'error': 'No data provided'}), 400
     
     # Assuming data is for posts collection
-    result = db.posts.insert_one(data)
+    result = write_to_db(data)
     return jsonify({'message': 'Data inserted', 'id': str(result.inserted_id)}), 201
 
 if __name__ == '__main__':

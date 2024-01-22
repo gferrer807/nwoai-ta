@@ -34,6 +34,8 @@ services:
       - "8083:8080"
     environment:
       - PORT=8080
+      - MONGO_URI=mongodb://root:rootpassword@mongodb_container:27017/
+      - DB_NAME=reddit
       - PUBSUB_EMULATOR_HOST=pubsub-emulator:8085
 
   mongodb_container:
