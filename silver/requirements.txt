@@ -2,3 +2,4 @@ Flask
 requests
 zstandard
 google-cloud-pubsub
+pymongo==3.12.0
