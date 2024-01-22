@@ -25,6 +25,17 @@ services:
       - PORT=8080
       - PUBSUB_EMULATOR_HOST=pubsub-emulator:8085
 
+  gold:
+    build: ./gold
+    command: python app.py
+    volumes:
+      - ./gold:/app
+    ports:
+      - "8083:8080"
+    environment:
+      - PORT=8080
+      - PUBSUB_EMULATOR_HOST=pubsub-emulator:8085
+
   mongodb_container:
     image: mongo:latest
     environment:
@@ -37,7 +48,6 @@ services:
 
 volumes:
   mongodb_data_container:
-
 
 
   # pubsub-emulator:

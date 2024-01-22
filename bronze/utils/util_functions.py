@@ -1,6 +1,7 @@
 import json
 import requests
 import base64
+from constants import SILVER_URL
 
 def process_jsonl_file(filepath):
     print(f'Processing file: {filepath}')
@@ -39,7 +40,7 @@ def send_to_silver(data):
     }
     
     # URL of the Silver service, using HTTP and the correct port
-    url = 'http://silver:8080/'
+    url = SILVER_URL
 
     try:
         # Sending the constructed message
