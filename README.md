@@ -37,7 +37,7 @@ This project implements a comprehensive ETL (Extract, Transform, Load) pipeline 
     python setup_db.py
     ```
     
-    You can do this from inside the docker container or outside. This script creates the reddit_analytics database and its associated collections. 
+    You can do this from inside the docker container or outside. This script creates the **`reddit_analytics`** database and its associated collections. 
     
 3. **Kick Off the ETL Process**
     
