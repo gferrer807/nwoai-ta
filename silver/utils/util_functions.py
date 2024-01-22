@@ -2,6 +2,7 @@ import json
 import base64
 import requests
 from pymongo import MongoClient
+import os
 
 GOLD_URL = os.environ.get('GOLD_URL', 'http://gold:8080/')
 

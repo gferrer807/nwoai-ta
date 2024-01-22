@@ -27,7 +27,7 @@ services:
       - MONGO_DB=reddit_analytics
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=rootpassword
-      - GOLD_URL=http://gold:8080
+      - GOLD_URL=http://gold:8080/insert
 
   gold:
     build: ./gold
