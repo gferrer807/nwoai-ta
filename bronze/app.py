@@ -29,7 +29,6 @@ def process_zst_file():
     try:
         download_url = f'https://drive.google.com/uc?id={GOOGLE_DRIVE_FILE_ID}&export=download'
         
-        # Download the file from Google Drive
         response = requests.get(download_url)
     except Exception as e:
         return jsonify({"status": "failed", "message": f"Error with requests: {e}"})
@@ -49,7 +48,7 @@ def process_zst_file():
     try:
         process_jsonl_file(DECOMPRESSED_OUTPUT_PATH)
     except Exception as e:
-        print(f'Error with processing: {e}')
+        logging.error(f'Error with processing: {e}')
         return jsonify({"status": "failed", "message": f"Error with jsonl: {e}"})
     
     return jsonify({"status": "completed"})

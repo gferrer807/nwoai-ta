@@ -6,9 +6,9 @@ This project implements a comprehensive ETL (Extract, Transform, Load) pipeline 
 
 ## **Architecture**
 
-- **Bronze Service**: Initiates the ETL pipeline by loading data from a specified Google Drive URL and forwarding it to the Silver service for processing.
-- **Silver Service**: Transforms the data received from Bronze, performs checks for the existence of domain tables and reference documents, creates them if absent, and appends the necessary IDs to the schema before passing the data to Gold.
-- **Gold Service**: Finalizes the pipeline by inserting the transformed and annotated data into MongoDB.
+- **Bronze Service**: Initiates the ETL pipeline by loading data from a specified Google Drive URL and forwarding it to the Silver service for processing. (meant to be a cloud run instance)
+- **Silver Service**: Transforms the data received from Bronze, performs checks for the existence of domain tables and reference documents, creates them if absent, and appends the necessary IDs to the schema before passing the data to Gold. (meant to be a cloud run instance)
+- **Gold Service**: Finalizes the pipeline by inserting the transformed and annotated data into MongoDB. (meant to be a cloud run instance)
 
 ## **Getting Started**
 
@@ -46,7 +46,6 @@ This project implements a comprehensive ETL (Extract, Transform, Load) pipeline 
     ```
     curl -X POST http://localhost:8081/process-zst
     ```
-    
 
 ### **Development in Isolation**
 

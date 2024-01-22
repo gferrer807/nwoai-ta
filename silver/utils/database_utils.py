@@ -109,12 +109,12 @@ def process_data(raw_data):
 
     return {
         "post_id": post_id,
-        "title": data['title'],
-        "created_utc_time": data['created_utc'],
-        "score": data['score'],
-        "num_comments": data['num_comments'],
+        "title": data.get('title', ""),
+        "created_utc_time": data.get('created_utc'),
+        "score": data.get('score', 0),
+        "num_comments": data.get('num_comments', 0),
         "subreddit_id": subreddit_id,
         "author_id": author_id,
         "media_ids": media_ids,
-        "permalink": data['permalink'],
+        "permalink": data.get("permalink", ""),
     }

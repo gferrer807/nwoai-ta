@@ -4,6 +4,14 @@ The ETL pipeline's data architecture leverages a design closely aligned with the
 
 Normally I might implement a non-normalized schema for NoSQL but the star schema gives some flexibility in incorporating more relation structures and relationships.
 
+## **Bronze Schema**
+
+At the current moment, bronze is being treated as a general extractor. I wasn't sure if the schema was static or would evolve over time so I left it static.
+
+## **Document Models**
+
+If I had more time, I would use MongoEngine, or similar library to define a hard document model for incoming and outbound data. This ensures a consistent schema across all steps of the ETL pipeline.
+
 ## **Improved Testing**
 
 I would improve the testing suite to have more comprehensive coverage but for the sake of time and simplicity, I've left the test coverage to be small and light

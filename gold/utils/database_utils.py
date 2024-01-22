@@ -25,7 +25,6 @@ def prepare_and_insert_posts(decoded_data):
             element['author_id'] = ObjectId(element['author_id'])
             element['media_ids'] = [ObjectId(id_str) for id_str in element.get('media_ids', [])]
     except Exception as e:
-        # An error occurred
         return False, str(e)
 
     try:
@@ -34,5 +33,4 @@ def prepare_and_insert_posts(decoded_data):
         # Successfully inserted
         return True, f"Data inserted successfully, inserted_ids: {[str(id_) for id_ in result.inserted_ids]}"
     except Exception as e:
-        # An error occurred
         return False, str(e)
