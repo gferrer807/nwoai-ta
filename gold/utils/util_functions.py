@@ -4,8 +4,8 @@ from pymongo.errors import BulkWriteError
 def write_to_db(data):
     mongo_uri = "mongodb://root:rootpassword@mongodb_container:27017/"
     client = MongoClient(mongo_uri, serverSelectionTimeoutMS=5000)
-    db = client["reddit_analytics"]
-    collection = db["accidental_renaissance"]
+    db = client["test"]
+    collection = db["posts"]
 
     try:
         # replace insert_many bulk_write with list of operations if there are concerns of updating existing documents

@@ -27,7 +27,7 @@ def insert_data():
 
     try:
         # Assuming 'data' is a list of documents to insert
-        result = db['your_collection_name'].insert_many(data)  # Adjust the collection name as needed
+        result = db['posts'].insert_many(data)  # Adjust the collection name as needed
         return jsonify({'message': 'Data inserted successfully', 'inserted_ids': str(result.inserted_ids)}), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 500

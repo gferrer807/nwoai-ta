@@ -4,7 +4,8 @@ import json
 from flask import Flask, request, jsonify
 from google.cloud import pubsub_v1
 from concurrent.futures import TimeoutError
-from utils.util_functions import translate_schema, send_to_gold
+from utils.util_functions import send_to_gold
+from utils.database_utils import process_data
 
 app = Flask(__name__)
 
@@ -38,20 +39,16 @@ def process_pubsub_message():
     except json.JSONDecodeError as e:
         return jsonify({'error': 'Decoding JSON failed', 'detail': str(e)}), 400
 
-    # At this point, message_data is a Python object (dict or list) that you can work with
-    # Example: print or process the data
-    # print(message_data[0])
-
     # Process the JSON objects in the message data
     data_to_insert = []
     try:
         for data_entry in message_data:
-            data_to_insert.append(translate_schema(data_entry))
+            data_to_insert.append(process_data(data_entry))
 
         # insert into mongodb
         send_to_gold(data_to_insert)
     except Exception as e:
-        print(f'error: {e}')
+        print(f'Error: {e}')
         return jsonify({"status": "failed", "message": str(e)}), 500
 
     return jsonify({"status": "completed"}), 200    

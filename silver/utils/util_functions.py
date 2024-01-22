@@ -1,41 +1,14 @@
 import json
 import base64
 import requests
+from pymongo import MongoClient
+from .database_utils import upsert_subreddit
+
+# Setup MongoDB connection
+client = MongoClient('mongodb_connection_string')
+db = client['your_database_name']
 
 GOLD_URL = 'http://gold:8080/insert'
-
-def translate_schema(raw_data):
-    data = raw_data['data']['data']
-
-    media_previews = []
-    if 'preview' in data and 'images' in data['preview']:
-        for media in data['preview']['images']:
-            media_previews.append({
-                "url": media['source']['url'],
-                "thumbnail": media['resolutions'][-1]['url']
-            })
-    try:
-        id = data['id']
-    except Exception as e:
-        id = data['data']['id']
-    return {
-        "post_id": id,
-        "title": data['title'],
-        "created_utc_time": data['created_utc'],
-        "score": data['score'],
-        "num_comments": data['num_comments'],
-        "subreddit": {
-            "name": data['subreddit'],
-            "subscribers": data['subreddit_subscribers']
-        },
-        "author": {
-            "name": data['author'],
-            "full_name": data['author_fullname'] if 'author_fullname' in data else None,
-            "premium_status": data['author_premium'] if 'author_premium' in data else None,
-        },
-        "media": media_previews,
-        "permalink": data['permalink'],
-    }
 
 def send_to_gold(data):
     # Construct the Pub/Sub message envelope and data payload
