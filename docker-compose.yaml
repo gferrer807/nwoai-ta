@@ -24,6 +24,10 @@ services:
     environment:
       - PORT=8080
       - PUBSUB_EMULATOR_HOST=pubsub-emulator:8085
+      - MONGO_DB=reddit_analytics
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=rootpassword
+
 
   gold:
     build: ./gold
@@ -35,8 +39,10 @@ services:
     environment:
       - PORT=8080
       - MONGO_URI=mongodb://root:rootpassword@mongodb_container:27017/
-      - DB_NAME=reddit
+      - MONGO_DB=reddit_analytics
       - PUBSUB_EMULATOR_HOST=pubsub-emulator:8085
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=rootpassword
 
   mongodb_container:
     image: mongo:latest

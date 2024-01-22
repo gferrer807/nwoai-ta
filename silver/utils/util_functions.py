@@ -2,11 +2,6 @@ import json
 import base64
 import requests
 from pymongo import MongoClient
-from .database_utils import upsert_subreddit
-
-# Setup MongoDB connection
-client = MongoClient('mongodb_connection_string')
-db = client['your_database_name']
 
 GOLD_URL = 'http://gold:8080/insert'
 

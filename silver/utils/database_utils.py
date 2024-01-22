@@ -1,10 +1,17 @@
 from pymongo import MongoClient, UpdateOne
 from bson.objectid import ObjectId
 from datetime import datetime
+import os
 
-# Setup MongoDB connection
-client = MongoClient("mongodb://root:rootpassword@mongodb_container:27017/")
-db = client['test']
+MONGO_DB = os.environ.get('MONGO_DB')
+MONGO_USER = os.environ.get('MONGO_INITDB_ROOT_USERNAME', 'root')
+MONGO_PASSWORD = os.environ.get('MONGO_INITDB_ROOT_PASSWORD', 'rootpassword')
+MONGO_HOST = os.environ.get('MONGO_HOST', 'mongodb_container')
+
+mongo_uri = f"mongodb://{MONGO_USER}:{MONGO_PASSWORD}@{MONGO_HOST}:27017/"
+
+client = MongoClient(mongo_uri)
+db = client[MONGO_DB]
 
 # Example for insert_author_if_not_exists
 def insert_author_if_not_exists(author_data):
