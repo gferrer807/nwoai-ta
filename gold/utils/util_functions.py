@@ -1,18 +1,17 @@
 from pymongo import MongoClient
 from pymongo.errors import ConnectionFailure
 
+mongo_uri = "mongodb://localhost:27017/"
+client = MongoClient(mongo_uri)
+db = client["test"]
+collection = db["data_collection"]
+
 def write_to_db(data):
-    mongo_uri = "mongodb://localhost:27017/"
-    client = MongoClient(mongo_uri)
-    
     try:
         client.admin.command('ping')
     except ConnectionFailure:
         print("MongoDB connection failed")
         return
-    
-    db = client["test"]
-    collection = db["data_collection"]
     
     try:
         result = collection.insert_one(data)

@@ -2,7 +2,7 @@ import json
 import base64
 import requests
 
-GOLD_URL = 'http://gold:8080/'
+GOLD_URL = 'http://gold:8080/insert'
 
 def translate_schema(raw_data):
     data = raw_data['data']
