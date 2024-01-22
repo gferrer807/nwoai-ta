@@ -13,9 +13,7 @@ def client(app):
 
 @pytest.fixture
 def mongo_mock(mocker):
-    # Mock the MongoClient
     mongo_client_mock = mocker.patch('utils.database_utils.MongoClient')
-    # Set up the mock to return a database and collection
-    mock_db = mongo_client_mock.return_value[MONGO_DB]
+    mock_db = mongo_client_mock.return_value[TEST_MONGO_DB]
     mock_collection = mock_db['posts']
     return mock_collection

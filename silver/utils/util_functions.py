@@ -7,6 +7,7 @@ import os
 GOLD_URL = os.environ.get('GOLD_URL', 'http://gold:8080/')
 
 def send_to_gold(data):
+    print(base64.b64encode(json.dumps(data).encode("utf-8")).decode("utf-8"), flush=True)
     pubsub_message = {
         "message": {
             "data": base64.b64encode(json.dumps(data).encode("utf-8")).decode("utf-8"),

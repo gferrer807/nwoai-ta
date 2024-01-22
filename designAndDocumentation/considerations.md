@@ -4,6 +4,10 @@ The ETL pipeline's data architecture leverages a design closely aligned with the
 
 Normally I might implement a non-normalized schema for NoSQL but the star schema gives some flexibility in incorporating more relation structures and relationships.
 
+## **Improved Testing**
+
+I would improve the testing suite to have more comprehensive coverage but for the sake of time and simplicity, I've left the test coverage to be small and light
+
 ## **Pub/Sub for Local Testing**
 
 The initial plan was to use the local Pub/Sub emulator for testing to closely mimic the production environment. However, due to challenges encountered, this was set aside. Moving forward, integrating the Pub/Sub emulator remains a priority to ensure that local development and testing environments accurately reflect production settings, reducing the risk of environment-specific bugs and issues.

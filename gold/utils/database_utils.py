@@ -18,11 +18,15 @@ def prepare_and_insert_posts(decoded_data):
     :param decoded_data: The JSON-decoded data received from the request.
     :return: A tuple of (success, message) where success is a boolean indicating the operation's outcome.
     """
-    for element in decoded_data:
-        # Convert string IDs to ObjectIds
-        element['subreddit_id'] = ObjectId(element['subreddit_id'])
-        element['author_id'] = ObjectId(element['author_id'])
-        element['media_ids'] = [ObjectId(id_str) for id_str in element.get('media_ids', [])]
+    try:
+        for element in decoded_data:
+            # Convert string IDs to ObjectIds
+            element['subreddit_id'] = ObjectId(element['subreddit_id'])
+            element['author_id'] = ObjectId(element['author_id'])
+            element['media_ids'] = [ObjectId(id_str) for id_str in element.get('media_ids', [])]
+    except Exception as e:
+        # An error occurred
+        return False, str(e)
 
     try:
         # Insert the prepared data into the 'posts' collection

@@ -1,4 +1,5 @@
-Flask==2.0.1
+Flask
+requests
 pymongo==3.12.0
 pytest
 pytest-mock
