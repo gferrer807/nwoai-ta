@@ -25,12 +25,27 @@ services:
       - PORT=8080
       - PUBSUB_EMULATOR_HOST=pubsub-emulator:8085
 
-  pubsub-emulator:
-    image: google/cloud-sdk:latest
-    ports:
-      - "8085:8085"
-    volumes:
-      - ./utils/pubsub-setup.sh:/pubsub-setup.sh
-    command: gcloud beta emulators pubsub start --host-port=0.0.0.0:8085
+  mongodb_container:
+    image: mongo:latest
     environment:
-      - CLOUDSDK_CORE_PROJECT=fake-project
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: rootpassword
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb_data_container:/data/db
+
+volumes:
+  mongodb_data_container:
+
+
+
+  # pubsub-emulator:
+  #   image: google/cloud-sdk:latest
+  #   ports:
+  #     - "8085:8085"
+  #   volumes:
+  #     - ./utils/pubsub-setup.sh:/pubsub-setup.sh
+  #   command: gcloud beta emulators pubsub start --host-port=0.0.0.0:8085
+  #   environment:
+  #     - CLOUDSDK_CORE_PROJECT=fake-project

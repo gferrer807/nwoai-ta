@@ -47,7 +47,7 @@ def process_zst_file():
         return jsonify({"status": "failed", "message": f"Error with decompression: {e}"})
     
     try:
-        process_jsonl_file(DECOMPRESSED_OUTPUT_PATH, publisher, topic_path)
+        process_jsonl_file(DECOMPRESSED_OUTPUT_PATH)
     except Exception as e:
         print(f'Error with processing: {e}')
         return jsonify({"status": "failed", "message": f"Error with jsonl: {e}"})
