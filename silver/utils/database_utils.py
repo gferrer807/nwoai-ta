@@ -97,7 +97,6 @@ def process_data(raw_data):
 
     # Extract post ID with fallback
     post_id = data.get('id', data.get('data', {}).get('id'))
-
     media_ids = []
     if 'preview' in data and 'images' in data['preview']:
         for media in data['preview']['images']:

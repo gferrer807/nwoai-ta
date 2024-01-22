@@ -6,7 +6,7 @@ from constants import SILVER_URL
 def process_jsonl_file(filepath):
     print(f'Processing file: {filepath}')
     batch = []
-    batch_size = 50  # Number of lines to send at a time
+    batch_size = 1  # Number of lines to send at a time
 
     with open(filepath, 'r') as file:
         for line in file:

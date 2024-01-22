@@ -2,6 +2,7 @@ version: '3.8'
 services:
   bronze:
     build: ./bronze
+    working_dir: /app
     command: python app.py
     volumes:
       - ./bronze:/app
@@ -16,6 +17,7 @@ services:
 
   silver:
     build: ./silver
+    working_dir: /app
     command: python app.py
     volumes:
       - ./silver:/app
@@ -31,6 +33,7 @@ services:
 
   gold:
     build: ./gold
+    working_dir: /app
     command: python app.py
     volumes:
       - ./gold:/app

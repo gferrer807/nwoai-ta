@@ -2,3 +2,5 @@ Flask
 requests
 zstandard
 google-cloud-pubsub
+pytest
+pytest-mock

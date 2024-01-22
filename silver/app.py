@@ -23,7 +23,7 @@ def process_pubsub_message():
     envelope = request.get_json()
     if not envelope or not 'message' in envelope or not 'data' in envelope['message']:
         msg = 'Invalid Pub/Sub message format'
-        print(f'error: {msg}')
+        print(f'error with pubsub: {msg}')
         return f'Bad Request: {msg}', 400
 
     pubsub_message = envelope['message']
@@ -44,7 +44,7 @@ def process_pubsub_message():
 
         send_to_gold(data_to_insert)
     except Exception as e:
-        print(f'Error: {e}')
+        print(f'Error sending data: {e}')
         return jsonify({"status": "failed", "message": str(e)}), 500
 
     return jsonify({"status": "completed"}), 200    

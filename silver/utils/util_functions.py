@@ -7,7 +7,6 @@ import os
 GOLD_URL = os.environ.get('GOLD_URL', 'http://gold:8080/')
 
 def send_to_gold(data):
-    # Construct the Pub/Sub message envelope and data payload
     pubsub_message = {
         "message": {
             "data": base64.b64encode(json.dumps(data).encode("utf-8")).decode("utf-8"),
@@ -18,7 +17,6 @@ def send_to_gold(data):
     }
 
     try:
-        # Sending the constructed message
         response = requests.post(GOLD_URL, json=pubsub_message)
         if response.status_code == 200:
             print("Message sent successfully to Gold service.")
