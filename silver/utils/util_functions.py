@@ -3,7 +3,7 @@ import base64
 import requests
 from pymongo import MongoClient
 
-GOLD_URL = 'http://gold:8080/insert'
+GOLD_URL = os.environ.get('GOLD_URL', 'http://gold:8080/')
 
 def send_to_gold(data):
     # Construct the Pub/Sub message envelope and data payload
@@ -15,13 +15,10 @@ def send_to_gold(data):
         },
         "subscription": "projects/fake-project/subscriptions/fake-subscription"
     }
-    
-    # URL of the Silver service, using HTTP and the correct port
-    url = GOLD_URL
 
     try:
         # Sending the constructed message
-        response = requests.post(url, json=pubsub_message)
+        response = requests.post(GOLD_URL, json=pubsub_message)
         if response.status_code == 200:
             print("Message sent successfully to Gold service.")
         else:

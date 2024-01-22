@@ -11,7 +11,6 @@ app = Flask(__name__)
 
 @app.route('/_ah/warmup')
 def warmup():
-    # Warmup requests are used in Cloud Run to initialize the instance
     return '', 200, {}
 
 @app.route('/healthz', methods=['GET'])
@@ -33,19 +32,16 @@ def process_pubsub_message():
     message_data_encoded = pubsub_message['data']
     message_data_json = base64.b64decode(message_data_encoded).decode('utf-8')
 
-    # Parse the JSON string to a Python object (dict or list)
     try:
         message_data = json.loads(message_data_json)
     except json.JSONDecodeError as e:
         return jsonify({'error': 'Decoding JSON failed', 'detail': str(e)}), 400
 
-    # Process the JSON objects in the message data
     data_to_insert = []
     try:
         for data_entry in message_data:
             data_to_insert.append(process_data(data_entry))
 
-        # insert into mongodb
         send_to_gold(data_to_insert)
     except Exception as e:
         print(f'Error: {e}')

@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 import os
+from bson.objectid import ObjectId
 from pymongo import MongoClient
 import json
 import base64
@@ -28,6 +29,11 @@ def insert_data():
     decoded_data = base64.b64decode(encoded_data).decode('utf-8')
     data = json.loads(decoded_data)
 
+    for element in data:
+        element['subreddit_id'] = ObjectId(element['subreddit_id'])
+        element['author_id'] = ObjectId(element['author_id'])
+        element['media_ids'] = [ObjectId(id_str) for id_str in element['media_ids']]
+
     try:
         result = db['posts'].insert_many(data)
         return jsonify({'message': 'Data inserted successfully', 'inserted_ids': str(result.inserted_ids)}), 200
@@ -35,4 +41,4 @@ def insert_data():
         return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
+    app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
