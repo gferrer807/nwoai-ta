@@ -1,18 +1,15 @@
 from flask import Flask, request, jsonify
-from pymongo import MongoClient
-from utils.util_functions import write_to_db
 import os
+from pymongo import MongoClient
 import json
 import base64
 
 app = Flask(__name__)
 
-# MongoDB connection string
-MONGO_URI = os.environ.get('MONGO_URI', 'mongodb://root:example@mongodb:27017/')
-DB_NAME = 'reddit'
-
-client = MongoClient(MONGO_URI)
-db = client[DB_NAME]
+# Create a global MongoDB client
+mongo_uri = os.environ.get('MONGO_URI', 'mongodb://root:rootpassword@mongodb_container:27017/')
+client = MongoClient(mongo_uri)
+db = client['test']  # Adjust the database name as needed
 
 @app.route('/insert', methods=['POST'])
 def insert_data():
@@ -28,11 +25,12 @@ def insert_data():
     decoded_data = base64.b64decode(encoded_data).decode('utf-8')
     data = json.loads(decoded_data)
 
-    # Insert decoded data into MongoDB
-    result = write_to_db(data)
-
-    # Return the MongoDB insert result
-    return jsonify({'message': 'Data inserted'}), 201
+    try:
+        # Assuming 'data' is a list of documents to insert
+        result = db['your_collection_name'].insert_many(data)  # Adjust the collection name as needed
+        return jsonify({'message': 'Data inserted successfully', 'inserted_ids': str(result.inserted_ids)}), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
