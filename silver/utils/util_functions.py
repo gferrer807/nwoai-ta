@@ -5,7 +5,7 @@ import requests
 GOLD_URL = 'http://gold:8080/insert'
 
 def translate_schema(raw_data):
-    data = raw_data['data']
+    data = raw_data['data']['data']
     try:
         id = data['id']
     except Exception as e:

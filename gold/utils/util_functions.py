@@ -1,23 +1,19 @@
 from pymongo import MongoClient
 from pymongo.errors import ConnectionFailure
 
-mongo_uri = "mongodb://localhost:27017/"
-client = MongoClient(mongo_uri)
-db = client["test"]
-collection = db["data_collection"]
-
 def write_to_db(data):
+    mongo_uri = "mongodb://root:rootpassword@mongodb_container:27017/"
+    client = MongoClient(mongo_uri, serverSelectionTimeoutMS=5000)
+    db = client["test"]
+    collection = db["data_collection"]
+
+    print('Attempting to write in db...', flush=True)
     try:
-        client.admin.command('ping')
-    except ConnectionFailure:
-        print("MongoDB connection failed")
-        return
-    
-    try:
-        result = collection.insert_one(data)
-        print(f"Data inserted with record id {result.inserted_id}")
+        for element in data:
+            print("Attempting to insert data:", element, flush=True)
+            result = collection.insert_one(element)
+            print(f"Data inserted with record id {result.inserted_id}", flush=True)
     except Exception as e:
-        print(f"An error occurred: {e}")
+        print(f"An error occurred during insertion: {e}", flush=True)
     finally:
-        # Close the MongoDB connection
         client.close()
